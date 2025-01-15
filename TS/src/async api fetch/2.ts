@@ -19,6 +19,10 @@ const getRestourantName = async (): Promise<string[]> => {
 let restourantNames: string[];
 
 (async function () {
-  restourantNames = await getRestourantName();
-  console.log(restourantNames);
+  try {
+    restourantNames = await getRestourantName();
+    console.log(restourantNames);
+  } catch (e) {
+    console.error(e);
+  }
 })();
