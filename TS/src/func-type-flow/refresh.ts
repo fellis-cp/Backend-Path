@@ -1,11 +1,11 @@
-type _Product = {
+type _Sample = {
   id: number;
   name: string;
   category: string;
   price: number;
 };
 
-const sampleProducts: _Product[] = [
+const sampleProducts: _Sample[] = [
   { id: 1, name: "Laptop", category: "Electronics", price: 1000 },
   { id: 2, name: "Phone", category: "Electronics", price: 500 },
   { id: 3, name: "Shirt", category: "Apparel", price: 50 },
@@ -14,10 +14,10 @@ const sampleProducts: _Product[] = [
 ];
 
 function getProductsByCategory(
-  products: _Product[],
+  products: _Sample[],
   category: string
-): _Product[] {
-  return products.filter((products) => products.category === category);
+): _Sample | undefined {
+  return products.find((products) => products.category == category);
 
   /**
    * TODO:
@@ -25,13 +25,8 @@ function getProductsByCategory(
    */
 }
 
-function findProductById(products: _Product[], id: number): _Product[] {
-  const findProduct = products.find((products) => products.id === id);
-
-  if (products) {
-    return products;
-  }
-  throw new Error("product tidak ditemukan");
+function findProductById(products: _Sample[], id: number): _Sample | undefined {
+  return products.find((products) => products.id === id);
 
   /**
    * TODO:
@@ -39,23 +34,19 @@ function findProductById(products: _Product[], id: number): _Product[] {
    */
 }
 
-function calculateTotalPrice(products: _Product[]): number {
-  return products.reduce((total, products) => products.price + total, 0);
-
+function calculateTotalPrice(products: _Sample[]): number {
+  return products.reduce((init, products) => init + products.price, 0);
   /**
    * TODO:
    * Gunakan metode array immutable untuk menghitung total harga semua produk.
    */
 }
 
-function applyDiscount(products: _Product[], discount: number): _Product[] {
-  const newDiscountProduct = products.map((products) => ({
+function applyDiscount(products: _Sample[], discount: number): _Sample[] {
+  return products.map((products) => ({
     ...products,
-    price: products.price - products.price * (discount / 100),
+    price: products.price - (products.price - discount / 100),
   }));
-
-  return newDiscountProduct;
-
   /**
    * TODO:
    * Gunakan metode array immutable untuk mengembalikan array baru,
