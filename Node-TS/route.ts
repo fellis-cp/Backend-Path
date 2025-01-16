@@ -1,32 +1,29 @@
-import happi, { Request, ResponseToolkit } from "@hapi/hapi";
-import path from "path";
+import { Request, ResponseToolkit, ServerRoute } from "@hapi/hapi";
+import joi from "joi";
 
-const routes: any = [
-  {
-    method: "GET",
-    path: "/",
-    handler: (req: Request, res: ResponseToolkit) => {
-      return "home";
-    },
-  },
-
+const routes: ServerRoute[] = [
   {
     method: "POST",
-    path: "/about",
-    handler: (req: Request, res: ResponseToolkit) => {
-      return "about";
+    path: "/login",
+    options: {
+      validate: {
+        payload: joi.object({
+          id: joi.string().required(),
+          pw: joi.string().required(),
+        }),
+      },
     },
-  },
-
-  {
-    method: "GET",
-    path: "/redirect",
     handler: (req: Request, res: ResponseToolkit) => {
-      return res
-        .response({
-          message: " this is json res",
-        })
-        .code(200);
+      const { id, pw } = req.payload as { id: string; pw: string };
+      if (id && pw) {
+        return res
+          .response({
+            message: "berhasil login",
+            id,
+            pw,
+          })
+          .code(200);
+      }
     },
   },
 ];

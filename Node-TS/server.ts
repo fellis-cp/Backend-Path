@@ -1,25 +1,16 @@
-//happi in a nutshell
-import happi, { Request, ResponseToolkit } from "@hapi/hapi";
-import path from "path";
-import { routes } from "./route";
+import hapi from "@hapi/hapi";
 import { log } from "console";
+import { routes } from "./route";
 
 const initServer = async (): Promise<void> => {
-  const server = happi.server({
-    port: 1000,
-    host: "localhost",
+  const server = hapi.server({
+    port: 3000,
   });
 
   server.route(routes);
 
   await server.start();
-  if (server) {
-    console.log("server hidup");
-  }
+  console.log("server start");
 };
 
-try {
-  initServer();
-} catch (e) {
-  console.error(e);
-}
+initServer();
