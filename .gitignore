@@ -1,4 +1,5 @@
-echo "node_modules/
+/NODE-TS/node_modules
+/NODE-TS/bundle
 dist/
 build/
 .env
