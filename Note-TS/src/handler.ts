@@ -122,10 +122,32 @@ const getnotesBody = (req: Request, res: ResponseToolkit) => {
   };
 };
 
+const deleteNoteId = (req: Request, res: ResponseToolkit) => {
+  const { id } = req.params as { id: string };
+  const index = note.findIndex((index) => index.id === id);
+
+  if (index == -1) {
+    const spliced = note.splice(index, 1);
+    const sResponse = res.response({
+      status: "succes",
+      message: "berhasil dihapus",
+    });
+    sResponse.code(200);
+    return sResponse;
+  }
+  const fResponse = res.response({
+    status: "failed",
+    message: "gagal menghapus",
+  });
+  fResponse.code(404);
+  return fResponse;
+};
+
 export {
   getnotesBody,
   putNotesId,
   addNoteHandler,
   getAllnotesHandler,
   getnotesId,
+  deleteNoteId,
 };
