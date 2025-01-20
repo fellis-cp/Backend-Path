@@ -2,6 +2,7 @@ import { ServerRoute } from "@hapi/hapi";
 import { ResponseToolkit } from "hapi";
 import {
   addNoteHandler,
+  deleteNoteId,
   getAllnotesHandler,
   getnotesBody,
   getnotesId,
@@ -42,6 +43,12 @@ const routes: ServerRoute[] = [
     method: "GET",
     path: "/notes/body/{id}",
     handler: getnotesBody,
+  },
+
+  {
+    method: "DELETE",
+    path: "/notes/{id}",
+    handler: deleteNoteId,
   },
 ];
 
